@@ -50,8 +50,27 @@ describe("Home page", () => {
   
     return cy.findByRole('button').click()
       .then(() => {
-      expect(cy.findByRole('list')).toHaveLength(2);
-      //expect(cy.findByRole('listitem', /Lean Pockets/i)).toExist();
-      })   
+      // const recipes = cy.get('ul').children();
+      // expect(recipes).toHaveLength(2);
+      cy.get('ul').children().should(($children) => {
+        expect($children).toHaveLength(2);
+      })  
+    })   
   })
+
+  // it("shows recipe instructions when title cicked", () => {
+  //   const recipeName1 = 'Lean Pockets';
+  //   cy.findByRole('button').click()
+  //   cy.findByRole('textbox', {name: /Recipe name/i}).type(recipeName1)
+  //   cy.findByRole('textbox', {name: /instructions/i}).type("place in toaster oven on 350 for 45 minutes")
+
+  //   cy.findByRole('button').click()
+
+  //   return cy.get('li').click()
+  //   .then(() => {
+  //     cy.get('p')
+  //     .findByText("place in toaster oven on 350 for 45 minutes")
+  //     .should('exist')
+  //   }) 
+  // })
 })

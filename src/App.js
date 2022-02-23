@@ -1,13 +1,21 @@
 import React from 'react';
+import RecipeList from './Components/RecipeList'
+
 
 class App extends React.Component {
-
-  state = {
-    isAddRecipeFormDisplayed: false,
-    recipes: [],
-    newRecipeName: "",
-    newRecipeInstructions: ""
+  constructor() {
+    super();
+    this.state = {
+      isAddRecipeFormDisplayed: false,
+      isRecipeInstructionsDisplayed: false,
+      recipes: [],
+      newRecipeName: "",
+      newRecipeInstructions: ""
+    }
+    this.toggleRecipeInstruction = this.toggleRecipeInstruction.bind(this);
   }
+
+  
   
   // handleRecipeInstructionsChange = (event) => {
   //   const value = event.target.value;
@@ -30,6 +38,11 @@ class App extends React.Component {
 
   toggleAddRecipeForm = () => {
     this.setState({isAddRecipeFormDisplayed: !this.state.isAddRecipeFormDisplayed})
+  }
+
+  toggleRecipeInstruction = () => {
+    this.setState({isRecipeInstructionsDisplayed: !this.state.isRecipeInstructionsDisplayed})
+    console.log(this.state.isRecipeInstructionsDisplayed)
   }
 
   submitRecipe = (event) => {
@@ -64,10 +77,8 @@ class App extends React.Component {
           value={this.state.newRecipeInstructions} />
         <input type="submit" />
       </form>
-    )
-    const recipeList = this.state.recipes.map(recipe => {
-      return <li>{recipe.name}</li>
-    })
+    )    
+
     return (
       <div className="App">
       <h1 className="App-header">My Recipes</h1>
@@ -78,9 +89,11 @@ class App extends React.Component {
       }
       {
         this.state.recipes.length > 0 ?
-        <ul>
-          { recipeList }
-        </ul> :
+        <RecipeList 
+        toggleRecipeInstruction={this.toggleRecipeInstruction} 
+        recipes={this.state.recipes} 
+        isRecipeInstructionsDisplayed={this.state.isRecipeInstructionsDisplayed}
+        />:
         <p>There are no recipes to list.</p>
       }
     </div>
