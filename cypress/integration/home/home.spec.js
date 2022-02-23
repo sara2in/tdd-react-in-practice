@@ -50,27 +50,36 @@ describe("Home page", () => {
   
     return cy.findByRole('button').click()
       .then(() => {
-      // const recipes = cy.get('ul').children();
-      // expect(recipes).toHaveLength(2);
       cy.get('ul').children().should(($children) => {
         expect($children).toHaveLength(2);
       })  
     })   
   })
 
-  // it("shows recipe instructions when title cicked", () => {
-  //   const recipeName1 = 'Lean Pockets';
-  //   cy.findByRole('button').click()
-  //   cy.findByRole('textbox', {name: /Recipe name/i}).type(recipeName1)
-  //   cy.findByRole('textbox', {name: /instructions/i}).type("place in toaster oven on 350 for 45 minutes")
+  it("shows recipe instructions when title cicked", () => {
+    const recipeName1 = 'Lean Pockets';
+    cy.findByRole('button').click()
+    cy.findByRole('textbox', {name: /Recipe name/i}).type(recipeName1)
+    cy.findByRole('textbox', {name: /instructions/i}).type("place in toaster oven on 350 for 45 minutes")
 
-  //   cy.findByRole('button').click()
+    cy.findByRole('button').click()
 
-  //   return cy.get('li').click()
-  //   .then(() => {
-  //     cy.get('p')
-  //     .findByText("place in toaster oven on 350 for 45 minutes")
-  //     .should('exist')
-  //   }) 
-  // })
+    const recipeName2 = 'Ramen Noodles';
+    cy.findByRole('button').click()
+    cy.findByRole('textbox', {name: /Recipe name/i}).type(recipeName2)
+    cy.findByRole('textbox', {name: /instructions/i}).type("Pour hot water in cup and let sit for 3 minutes.")
+
+    cy.findByRole('button').click()
+
+    return cy.findByText('Lean Pockets').click()
+    .then(() => {
+      cy.get('p')
+      .findByText("place in toaster oven on 350 for 45 minutes")
+      .should('exist')
+    }).then(() => {
+      cy.get('p')
+      .findByText("Pour hot water in cup and let sit for 3 minutes.")
+      .should('not.exist')
+    }) 
+  })
 })

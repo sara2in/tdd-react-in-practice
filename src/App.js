@@ -7,7 +7,7 @@ class App extends React.Component {
     super();
     this.state = {
       isAddRecipeFormDisplayed: false,
-      isRecipeInstructionsDisplayed: false,
+      selectedRecipe: null,
       recipes: [],
       newRecipeName: "",
       newRecipeInstructions: ""
@@ -40,8 +40,8 @@ class App extends React.Component {
     this.setState({isAddRecipeFormDisplayed: !this.state.isAddRecipeFormDisplayed})
   }
 
-  toggleRecipeInstruction = () => {
-    this.setState({isRecipeInstructionsDisplayed: !this.state.isRecipeInstructionsDisplayed})
+  toggleRecipeInstruction = (index) => {
+    this.setState({selectedRecipe: index})
     console.log(this.state.isRecipeInstructionsDisplayed)
   }
 
@@ -92,7 +92,7 @@ class App extends React.Component {
         <RecipeList 
         toggleRecipeInstruction={this.toggleRecipeInstruction} 
         recipes={this.state.recipes} 
-        isRecipeInstructionsDisplayed={this.state.isRecipeInstructionsDisplayed}
+        selectedRecipe={this.state.selectedRecipe}
         />:
         <p>There are no recipes to list.</p>
       }

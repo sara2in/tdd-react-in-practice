@@ -1,16 +1,17 @@
 export default function RecipeList (props) {
-    const recipeList = props.recipes.map(recipe => {       
+    const recipeList = props.recipes.map((recipe, index) => {       
         return (
-          <li onClick={props.toggleRecipeInstruction}>
+          <li key={index} onClick={e => {props.toggleRecipeInstruction(index)}}>
             {recipe.name}
             {
-                props.isRecipeInstructionsDisplayed
-                ?<p>{recipe.instructions}</p> : <></>
-            }
-            
+                (index === props.selectedRecipe)
+                ?<p>{recipe.instructions}</p> : null
+            }          
           </li>
         )
       })
     
     return <ul>{recipeList}</ul>
 }
+
+//
